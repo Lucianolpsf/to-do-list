@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+:root{
+    --lightest: #FFFFFF;
+    --light: #D1DEE9;
+    --mid: #8197A9;
+    --dark: #283845;
+    --darkest: #202C39;
+    --brand: #97591c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Arial', sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    background-image: url(img/pexels-ann-poan-5797903.jpg);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2em;
+}
+
+h1{
+    font-size: 3em;
+    font-weight: 700;
+}
+span {
+    color: var(--brand);
+}
+.container {
+    width: 80%;
+    max-width: 750px;
+    padding: 2em 1em;
+    border-radius: 5px;
+    background-color: var(--dark);
+    box-shadow: 1px 1px 5px var(--darkest);
+    color: var(--lightest);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2em;
+}
+
+#texto-input {
+    padding: 0.7em;
+    border-radius: 5px;
+    margin-right: 1em;
+}
+
+#texto-input:focus {
+    outline: 1px solid var(--brand);
+}
+
+#cadastro{
+    margin-bottom: 2em;
+}
+
+#tarefas{
+    min-width: 90%;    
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em ;
+    background-color: var(--darkest);
+    margin: 0.3em;
+    border-radius: 5px;
+    align-items: center;
+}
+
+button{
+    padding: 0.7em;
+    background-color: var(--light);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+button:hover{
+    color: var(--brand) ;
+    background-color: var(--lightest);
+}
