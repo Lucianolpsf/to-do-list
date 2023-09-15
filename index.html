@@ -8,37 +8,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Lista de <span>tarefas</span></h1>
-    <main class="container">
-        <form id="cadastro">
-            <input 
-                type="text" 
-                name="texto-input" 
-                id="texto-input" 
-                placeholder="digite sua nova tarefa"
-            >
-            <button> Adicionar </button>
-        </form>
-        <div id="tarefas">
-            <ul>
-                <li>
-                    tarefa 1 
-                    <div>
-                        <button class="excluir">Excluir</button>
-                        <button class="concluir">Concluir</button>
-                    </div>
-                </li>
-                <li>
-                    tarefa 2 
-                    <div>
-                        <button class="excluir">Excluir</button>
-                        <button class="concluir">Concluir</button>
-                    </div>
-                </li>
-                
-            </ul>
-        </div>
+    
+    <div id="pagina"> </div>
+        <header>
+            <h1>Lista de <span>tarefas</span></h1>
+        </header>
+        <main class="container">
+            <form id="cadastro">
+                <input
+                    type="text"
+                    name="texto-input"
+                    id="texto-input"
+                    placeholder="digite sua nova tarefa"
+                >
+                <button id="adicionar"> Adicionar tarefa </button>
+            </form>
+            <div id="tarefas">
+                <ul>
+        
+                </ul>
+            </div>
+        </main>
+    
 
-    </main>
+<script src="script.js"></script>
 </body>
 </html>
