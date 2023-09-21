@@ -21,9 +21,9 @@ btnAdicionar.addEventListener('click', (evento)=>{
 listaTarefas.addEventListener('click',(elemento) =>{
 
     const itemClicado = elemento.target 
+    let idTarefa = itemClicado.parentElement.parentElement.getAttribute('tarefa-id')
     
     if (itemClicado.classList.contains('excluir')){
-        let idTarefa = itemClicado.parentElement.parentElement.getAttribute('tarefa-id')
         excluirTarefa(+idTarefa)
         renderizarTarefa()
     }
@@ -32,7 +32,6 @@ listaTarefas.addEventListener('click',(elemento) =>{
        
        itemClicado.parentElement.parentElement.firstElementChild.classList.toggle('concluido')
 
-       let idTarefa = itemClicado.parentElement.parentElement.getAttribute('tarefa-id')
        concluirTarefa(+idTarefa)
     }
 })
@@ -53,22 +52,22 @@ function gerarTarefa(textoTarefa){
 function salvarTarefa (textoTarefa){
 
     if (localStorage.getItem(KEY_LOCAL_STORAGE)){
-        tarefasSalvas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE))
+        tarefasSalvas = consultarTarefasLocalStorage()
             
         tarefasSalvas.push(gerarTarefa(textoTarefa)  )
 
-        localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
+        enviarTarefasLocalStorage(tarefasSalvas)
     }
     else
     {
         tarefasSalvas.push(gerarTarefa(textoTarefa)  )
-        localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
+        enviarTarefasLocalStorage(tarefasSalvas)
     }   
 }
 
 function concluirTarefa(id){
 
-    tarefasSalvas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE))
+    tarefasSalvas = consultarTarefasLocalStorage()
 
     tarefaParaAtulizar = tarefasSalvas.findIndex((tarefa)=> {            
 
@@ -77,31 +76,30 @@ function concluirTarefa(id){
 
     if (tarefasSalvas[tarefaParaAtulizar].status == 'concluido') {
         tarefasSalvas[tarefaParaAtulizar].status = ''
-        localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
+        enviarTarefasLocalStorage(tarefasSalvas)
     }
     else{
         tarefasSalvas[tarefaParaAtulizar].status = 'concluido'
-        localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
+        enviarTarefasLocalStorage(tarefasSalvas)
     }
 }
 
 function excluirTarefa(id){
 
-    tarefasSalvas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE))
+    tarefasSalvas = consultarTarefasLocalStorage()
 
     indiceTarefa = tarefasSalvas.findIndex((tarefa)=> {            
         return tarefa.id == id
     })
     tarefasSalvas.splice(indiceTarefa, 1)
-    localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
+    enviarTarefasLocalStorage(tarefasSalvas)
 }
 
 function renderizarTarefa(){
-    const listaTarefas = document.querySelector('ul')
-
+   
     listaTarefas.innerHTML = '' 
 
-    tarefasSalvas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE))
+    tarefasSalvas = consultarTarefasLocalStorage()
 
     tarefasSalvas.forEach((tarefa) => {
 
@@ -117,4 +115,12 @@ function renderizarTarefa(){
 
         listaTarefas.appendChild(li)
     });
+}
+
+function consultarTarefasLocalStorage(){
+    return JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE))
+}
+
+function enviarTarefasLocalStorage(tarefasSalvas){
+    localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
 }
