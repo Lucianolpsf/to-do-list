@@ -1,10 +1,10 @@
 const btnAdicionar = document.getElementById('adicionar')
 const textoTarefa = document.getElementById('texto-input')
 const listaTarefas = document.querySelector('ul')
+const KEY_LOCAL_STORAGE = 'tarefasSalvas'
 let tarefasSalvas = []
-var id = 1
 
-if (localStorage.getItem('tarefasSalvas')){renderizarTarefa()}
+if (localStorage.getItem(KEY_LOCAL_STORAGE)){renderizarTarefa()}
 
 btnAdicionar.addEventListener('click', (evento)=>{
     evento.preventDefault();
@@ -21,31 +21,79 @@ btnAdicionar.addEventListener('click', (evento)=>{
 listaTarefas.addEventListener('click',(elemento) =>{
 
     const itemClicado = elemento.target 
- 
+    
     if (itemClicado.classList.contains('excluir')){
-       
-        let tarefa = itemClicado.parentElement.parentElement.firstElementChild.innerText
-
-        excluirTarefa(tarefa)
+        let idTarefa = itemClicado.parentElement.parentElement.getAttribute('tarefa-id')
+        excluirTarefa(+idTarefa)
         renderizarTarefa()
     }
 
     if (itemClicado.classList.contains('concluir')){
+       
        itemClicado.parentElement.parentElement.firstElementChild.classList.toggle('concluido')
-    //    concluirTarefa()
+
+       let idTarefa = itemClicado.parentElement.parentElement.getAttribute('tarefa-id')
+       concluirTarefa(+idTarefa)
     }
 })
 
-function excluirTarefa(tarefa){
+function gerarTarefa(textoTarefa){
+    
+    tarefasSalvas.length < 1 ? id = 1 : id = tarefasSalvas[tarefasSalvas.length-1].id + 1 ;
+    
+    let tarefa = {
+        id: id,
+        texto: textoTarefa,
+        status: ''
+    }
 
-    tarefasSalvas = JSON.parse(localStorage.getItem('tarefasSalvas'))
+    return tarefa
+}
 
-    let indice = tarefasSalvas.indexOf(tarefa)
+function salvarTarefa (textoTarefa){
 
-    tarefasSalvas.splice(indice, 1)
+    if (localStorage.getItem(KEY_LOCAL_STORAGE)){
+        tarefasSalvas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE))
+            
+        tarefasSalvas.push(gerarTarefa(textoTarefa)  )
 
-    localStorage.setItem('tarefasSalvas',JSON.stringify(tarefasSalvas))
+        localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
+    }
+    else
+    {
+        tarefasSalvas.push(gerarTarefa(textoTarefa)  )
+        localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
+    }   
+}
 
+function concluirTarefa(id){
+
+    tarefasSalvas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE))
+
+    tarefaParaAtulizar = tarefasSalvas.findIndex((tarefa)=> {            
+
+        return tarefa.id == id
+    })
+
+    if (tarefasSalvas[tarefaParaAtulizar].status == 'concluido') {
+        tarefasSalvas[tarefaParaAtulizar].status = ''
+        localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
+    }
+    else{
+        tarefasSalvas[tarefaParaAtulizar].status = 'concluido'
+        localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
+    }
+}
+
+function excluirTarefa(id){
+
+    tarefasSalvas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE))
+
+    indiceTarefa = tarefasSalvas.findIndex((tarefa)=> {            
+        return tarefa.id == id
+    })
+    tarefasSalvas.splice(indiceTarefa, 1)
+    localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
 }
 
 function renderizarTarefa(){
@@ -53,14 +101,15 @@ function renderizarTarefa(){
 
     listaTarefas.innerHTML = '' 
 
-    tarefasSalvas = JSON.parse(localStorage.getItem('tarefasSalvas'))
+    tarefasSalvas = JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE))
 
     tarefasSalvas.forEach((tarefa) => {
 
         const li = document.createElement('li')
+        li.setAttribute('tarefa-id', `${tarefa.id}`)
 
         li.innerHTML = `
-        <p>${tarefa.texto}</p> 
+        <p class="${tarefa.status}">${tarefa.texto}</p> 
         <div>
             <button class="excluir"></button>
             <button class="concluir"></button>
@@ -68,39 +117,4 @@ function renderizarTarefa(){
 
         listaTarefas.appendChild(li)
     });
-}
-
-function salvarTarefa (textoTarefa){
-
-    if (localStorage.getItem('tarefasSalvas')){
-        tarefasSalvas = JSON.parse(localStorage.getItem('tarefasSalvas'))
-            
-        tarefasSalvas.push(gerarTarefa(textoTarefa)  )
-
-        localStorage.setItem('tarefasSalvas',JSON.stringify(tarefasSalvas))
-    }
-    else
-    {
-        tarefasSalvas.push(gerarTarefa(textoTarefa)  )
-        localStorage.setItem('tarefasSalvas',JSON.stringify(tarefasSalvas))
-    }   
-}
-
-function gerarTarefa(textoTarefa){
-
-    let tarefa = {
-        id: id ,
-        texto: textoTarefa,
-        status: ''
-    }
-    id++
-    return tarefa
-}
-
-function concluirTarefa(){
-
-}
-
-function log(mensagem){
-    console.log(mensagem)
 }
