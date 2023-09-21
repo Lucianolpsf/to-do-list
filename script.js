@@ -1,6 +1,8 @@
 const btnAdicionar = document.getElementById('adicionar')
 const textoTarefa = document.getElementById('texto-input')
+const listaTarefas = document.querySelector('ul')
 let tarefasSalvas = []
+var id = 1
 
 if (localStorage.getItem('tarefasSalvas')){renderizarTarefa()}
 
@@ -16,8 +18,6 @@ btnAdicionar.addEventListener('click', (evento)=>{
     textoTarefa.value = ''
 })
 
-const listaTarefas = document.querySelector('ul')
-
 listaTarefas.addEventListener('click',(elemento) =>{
 
     const itemClicado = elemento.target 
@@ -32,6 +32,7 @@ listaTarefas.addEventListener('click',(elemento) =>{
 
     if (itemClicado.classList.contains('concluir')){
        itemClicado.parentElement.parentElement.firstElementChild.classList.toggle('concluido')
+    //    concluirTarefa()
     }
 })
 
@@ -54,12 +55,12 @@ function renderizarTarefa(){
 
     tarefasSalvas = JSON.parse(localStorage.getItem('tarefasSalvas'))
 
-    tarefasSalvas.forEach(tarefa => {
+    tarefasSalvas.forEach((tarefa) => {
 
         const li = document.createElement('li')
 
         li.innerHTML = `
-        <p>${tarefa}</p> 
+        <p>${tarefa.texto}</p> 
         <div>
             <button class="excluir"></button>
             <button class="concluir"></button>
@@ -70,16 +71,34 @@ function renderizarTarefa(){
 }
 
 function salvarTarefa (textoTarefa){
+
     if (localStorage.getItem('tarefasSalvas')){
         tarefasSalvas = JSON.parse(localStorage.getItem('tarefasSalvas'))
-        tarefasSalvas.push(textoTarefa)
+            
+        tarefasSalvas.push(gerarTarefa(textoTarefa)  )
+
         localStorage.setItem('tarefasSalvas',JSON.stringify(tarefasSalvas))
     }
     else
     {
-        tarefasSalvas.push(textoTarefa)
+        tarefasSalvas.push(gerarTarefa(textoTarefa)  )
         localStorage.setItem('tarefasSalvas',JSON.stringify(tarefasSalvas))
+    }   
+}
+
+function gerarTarefa(textoTarefa){
+
+    let tarefa = {
+        id: id ,
+        texto: textoTarefa,
+        status: ''
     }
+    id++
+    return tarefa
+}
+
+function concluirTarefa(){
+
 }
 
 function log(mensagem){
