@@ -1,11 +1,5 @@
-.container {
-    width: 80%;
-    max-width: 750px;
-    padding: 2em 1em;
-    border-radius: 5px;
-    background-color: var(--dark);
-    box-shadow: 1px 1px 5px var(--darkest);
-    color: var(--lightest);
+.lista {
+    width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;

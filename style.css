@@ -48,3 +48,29 @@ h1{
 span {
     color: var(--brand);
 }
+
+section{
+    width: 80%;
+    max-width: 80%;
+}
+
+section{
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+}
+.container{
+    padding: 2em 1em;
+    border-radius: 5px;
+    background-color: var(--dark);
+    box-shadow: 1px 1px 5px var(--darkest);
+    color: var(--lightest);
+    margin-bottom: 1em;
+}
+
+#menu-lateral{
+    margin-top: 2em;
+    flex-direction: column;
+    width: 30%;
+
+}

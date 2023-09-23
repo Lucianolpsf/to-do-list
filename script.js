@@ -1,10 +1,17 @@
 const btnAdicionar = document.getElementById('adicionar')
 const textoTarefa = document.getElementById('texto-input')
 const listaTarefas = document.querySelector('ul')
+const totalTarefas = document.querySelector('#tarefas-totais')
+const tarefasConcluidas = document.querySelector('#concluidas')
+const tarefasIncompletas = document.querySelector('#incompletas')
 const KEY_LOCAL_STORAGE = 'tarefasSalvas'
+
 let tarefasSalvas = []
 
-if (localStorage.getItem(KEY_LOCAL_STORAGE)){renderizarTarefa()}
+if (localStorage.getItem(KEY_LOCAL_STORAGE)){
+    renderizarTarefa()
+    atualizarGraficos()
+}
 
 btnAdicionar.addEventListener('click', (evento)=>{
     evento.preventDefault();
@@ -14,6 +21,7 @@ btnAdicionar.addEventListener('click', (evento)=>{
     } else {
         salvarTarefa(textoTarefa.value)
         renderizarTarefa()
+        atualizarGraficos()
     }   
     textoTarefa.value = ''
 })
@@ -26,6 +34,7 @@ listaTarefas.addEventListener('click',(elemento) =>{
     if (itemClicado.classList.contains('excluir')){
         excluirTarefa(+idTarefa)
         renderizarTarefa()
+        atualizarGraficos()
     }
 
     if (itemClicado.classList.contains('concluir')){
@@ -33,6 +42,7 @@ listaTarefas.addEventListener('click',(elemento) =>{
        itemClicado.parentElement.parentElement.firstElementChild.classList.toggle('concluido')
 
        concluirTarefa(+idTarefa)
+       atualizarGraficos()
     }
 })
 
@@ -123,4 +133,31 @@ function consultarTarefasLocalStorage(){
 
 function enviarTarefasLocalStorage(tarefasSalvas){
     localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
+}
+
+function contarTarefasTotais(){
+    let tarefas = consultarTarefasLocalStorage()
+    return tarefas.length
+}
+
+function contarTarefasConcluidas(){
+    let tarefas = consultarTarefasLocalStorage()
+
+    let tarefaConcluidas = tarefas.filter((tarefa)=>{
+        if (tarefa.status == 'concluido'){
+            return tarefa
+        }
+    })
+
+    return tarefaConcluidas.length
+}
+
+function contarTarefasIncompletas(){
+    return contarTarefasTotais() - contarTarefasConcluidas()
+}
+
+function atualizarGraficos(){
+    totalTarefas.innerHTML = contarTarefasTotais()
+    tarefasConcluidas.innerHTML = contarTarefasConcluidas()
+    tarefasIncompletas.innerHTML = contarTarefasIncompletas()
 }

@@ -9,11 +9,12 @@
 </head>
 <body>
     
-    <div id="pagina">
+    <main id="pagina">
         <header>
             <h1>Lista de <span>tarefas</span></h1>
         </header>
-        <main class="container">
+        <section>
+        <article class="lista container">
             <form id="cadastro">
                 <input
                     type="text"
@@ -28,8 +29,20 @@
         
                 </ul>
             </div>
-        </main>
-     </div>
+        </article>
+
+        
+            <aside id="menu-lateral">
+                <article class="container">
+                    <p id="tarefas-totais">tarefas atuais</p>
+                    <p id="concluidas">tarefas concluidas</p>
+                    <p id="incompletas">tarefas a realizar</p>
+                </article>
+                <article class="container">
+                </article>
+            </aside>
+        </section>
+     </main>
         
     
 
