@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 @import url(./lista.css);
+@import url(./aside.css);
+@import url(./modal.css);
 
 :root{
     --lightest: #FFFFFF;
@@ -8,7 +10,8 @@
     --dark: #283845;
     --darkest: #202C39;
     --brand: #97591c;
-    --buttoncolor: #31a931;
+    --buttonConfirmar: #31a931;
+    --buttonCancelar: rgb(156, 3, 3);
 }
 
 * {
@@ -27,7 +30,8 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
-#pagina {
+
+.pagina {
     background-color: #000000dc;
     width: 100%;
     min-height: 100%;
@@ -49,7 +53,7 @@ span {
     color: var(--brand);
 }
 
-section{
+#lista-section{
     width: 80%;
     max-width: 80%;
 }
@@ -67,10 +71,6 @@ section{
     color: var(--lightest);
     margin-bottom: 1em;
 }
-
-#menu-lateral{
-    margin-top: 2em;
-    flex-direction: column;
-    width: 30%;
-
+.hide {
+    display: none;
 }

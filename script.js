@@ -1,12 +1,17 @@
 const btnAdicionar = document.getElementById('adicionar')
 const textoTarefa = document.getElementById('texto-input')
 const listaTarefas = document.querySelector('ul')
+const modal = document.querySelector('#modal')
+const tarefaParaExcluir = document.querySelector('#texto-tarefa-excluir')
+const confirmarExclusao = document.querySelector('.confirmar')
+const cancelarExclusao = document.querySelector('.cancelar')
 const totalTarefas = document.querySelector('#tarefas-totais')
 const tarefasConcluidas = document.querySelector('#concluidas')
 const tarefasIncompletas = document.querySelector('#incompletas')
 const KEY_LOCAL_STORAGE = 'tarefasSalvas'
 
 let tarefasSalvas = []
+let itemClicado
 
 if (localStorage.getItem(KEY_LOCAL_STORAGE)){
     renderizarTarefa()
@@ -28,13 +33,12 @@ btnAdicionar.addEventListener('click', (evento)=>{
 
 listaTarefas.addEventListener('click',(elemento) =>{
 
-    const itemClicado = elemento.target 
+    itemClicado = elemento.target 
     let idTarefa = itemClicado.parentElement.parentElement.getAttribute('tarefa-id')
     
     if (itemClicado.classList.contains('excluir')){
-        excluirTarefa(+idTarefa)
-        renderizarTarefa()
-        atualizarGraficos()
+        
+        modal.classList.remove('hide')   
     }
 
     if (itemClicado.classList.contains('concluir')){
@@ -44,6 +48,22 @@ listaTarefas.addEventListener('click',(elemento) =>{
        concluirTarefa(+idTarefa)
        atualizarGraficos()
     }
+})
+
+confirmarExclusao.addEventListener('click',(evento)=>{
+
+    evento.stopPropagation()
+    
+    let idTarefa = itemClicado.parentElement.parentElement.getAttribute('tarefa-id')
+
+    excluirTarefa(idTarefa)
+    modal.classList.add('hide')
+    renderizarTarefa()
+    atualizarGraficos()
+})
+
+cancelarExclusao.addEventListener('click', ()=>{
+    modal.classList.add('hide')
 })
 
 function gerarTarefa(textoTarefa){

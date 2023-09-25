@@ -9,11 +9,11 @@
 </head>
 <body>
     
-    <main id="pagina">
+    <main class="pagina">
         <header>
             <h1>Lista de <span>tarefas</span></h1>
         </header>
-        <section>
+        <section id="lista-section">
         <article class="lista container">
             <form id="cadastro">
                 <input
@@ -34,9 +34,15 @@
         
             <aside id="menu-lateral">
                 <article class="container">
-                    <p id="tarefas-totais">tarefas atuais</p>
-                    <p id="concluidas">tarefas concluidas</p>
-                    <p id="incompletas">tarefas a realizar</p>
+                    <div>
+                        <p id="tarefas-totais">0</p>
+                    </div>
+                    <div>
+                        <p id="concluidas">0</p>
+                    </div>
+                    <div>
+                        <p id="incompletas">0</p>
+                    </div>
                 </article>
                 <article class="container">
                 </article>
@@ -44,7 +50,20 @@
         </section>
      </main>
         
-    
+    <section id="modal" class="pagina modal hide">
+        <article class="container">
+            <header class="header-modal">
+                 <h2>Deseja mesmo excluir a tarefa?</h2>
+            </header>
+            <main class="main-modal">
+                <p id="texto-tarefa-excluir"></p>
+            </main>
+            <footer class="footer-modal">
+                <button class="confirmar">Confirmar</button>
+                <button class="cancelar">Cancelar</button>
+            </footer>
+        </article>
+    </section>
 
 <script src="script.js"></script>
 </body>

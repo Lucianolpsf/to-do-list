@@ -1,0 +1,36 @@
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+.modal > .container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding: 2em;
+}
+
+.header-modal{
+    
+}
+.main-modal{
+
+}
+.footer-modal{
+    display: flex;
+    justify-content: end;
+    gap: 1em;
+}
+
+.confirmar{
+    background-color: var(--buttonConfirmar);
+    transition: 0.3s;
+}
+.cancelar{
+    background-color: var(--buttonCancelar);
+    transition: 0.3s;
+}
+
+.confirmar:hover, .cancelar:hover {
+    opacity: 85%;
+}

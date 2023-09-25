@@ -1,0 +1,11 @@
+#menu-lateral{
+    margin-top: 2em;
+    flex-direction: column;
+    width: 30%;
+
+}
+
+#menu-lateral > .container {
+    display: flex;
+    justify-content: space-around;
+}
