@@ -2,6 +2,7 @@
 @import url(./lista.css);
 @import url(./aside.css);
 @import url(./modal.css);
+@import url(./graficos.css);
 
 :root{
     --lightest: #FFFFFF;
@@ -24,7 +25,7 @@
 body {
     position: relative;
     height: 100vh;
-    background-image: url(img/pexels-ann-poan-5797903.jpg);
+    background-image: url(../img/pexels-ann-poan-5797903.jpg);
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To do list</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
     
@@ -34,14 +34,29 @@
         
             <aside id="menu-lateral">
                 <article class="container">
-                    <div>
-                        <p id="tarefas-totais">0</p>
+                    <div id="gr-tarefas" class="graficos">
+                        <svg>
+                            <circle cx="50" cy="50" r="50"></circle>
+                            <circle cx="50" cy="50" r="50"></circle>
+                        </svg>
+                        <p id="tarefas-totais" class="porcentagem">0</p>
+                        <p>Tarefas</p>
                     </div>
-                    <div>
-                        <p id="concluidas">0</p>
+                    <div id="gr-completas" class="graficos">
+                        <svg>
+                            <circle cx="50" cy="50" r="50"></circle>
+                            <circle cx="50" cy="50" r="50" id="circle-completas"></circle>
+                        </svg>
+                        <p id="concluidas" class="porcentagem">0</p>
+                        <p>Concluidas</p>
                     </div>
-                    <div>
-                        <p id="incompletas">0</p>
+                    <div id="gr-incompletas" class="graficos">
+                        <svg>
+                            <circle cx="50" cy="50" r="50"></circle>
+                            <circle cx="50" cy="50" r="50" id="circle-incompletas"></circle>
+                        </svg>
+                        <p id="incompletas" class="porcentagem">0</p>
+                        <p>Incompletas</p>
                     </div>
                 </article>
                 <article class="container">
@@ -65,6 +80,6 @@
         </article>
     </section>
 
-<script src="script.js"></script>
+<script src="./js/index.js"></script>
 </body>
 </html>

@@ -9,6 +9,8 @@ const totalTarefas = document.querySelector('#tarefas-totais')
 const tarefasConcluidas = document.querySelector('#concluidas')
 const tarefasIncompletas = document.querySelector('#incompletas')
 const KEY_LOCAL_STORAGE = 'tarefasSalvas'
+const circleCompletas = document.getElementById('circle-completas')
+const circleIncompletas = document.getElementById('circle-incompletas')
 
 let tarefasSalvas = []
 let itemClicado
@@ -37,8 +39,9 @@ listaTarefas.addEventListener('click',(elemento) =>{
     let idTarefa = itemClicado.parentElement.parentElement.getAttribute('tarefa-id')
     
     if (itemClicado.classList.contains('excluir')){
-        
-        modal.classList.remove('hide')   
+
+        modal.classList.remove('hide')
+        modal.querySelector('p').innerText = itemClicado.parentElement.parentElement.firstElementChild.innerText  
     }
 
     if (itemClicado.classList.contains('concluir')){
@@ -177,7 +180,14 @@ function contarTarefasIncompletas(){
 }
 
 function atualizarGraficos(){
+
     totalTarefas.innerHTML = contarTarefasTotais()
-    tarefasConcluidas.innerHTML = contarTarefasConcluidas()
-    tarefasIncompletas.innerHTML = contarTarefasIncompletas()
+    let porcentagemConcluidas = Math.round((contarTarefasConcluidas()*100/contarTarefasTotais()))
+    let porcentagemIncompletas = Math.round(contarTarefasIncompletas()*100/contarTarefasTotais())
+
+    tarefasConcluidas.innerHTML = porcentagemConcluidas +'%'
+    circleCompletas.style.strokeDashoffset = 315 -(315 * porcentagemConcluidas)/100
+
+    tarefasIncompletas.innerHTML = porcentagemIncompletas +'%'
+    circleIncompletas.style.strokeDashoffset = 315 -(315 * porcentagemIncompletas)/100
 }

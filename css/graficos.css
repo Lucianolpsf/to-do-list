@@ -1,0 +1,61 @@
+.graficos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+svg {
+    max-width: 120px;
+    max-height: 120px;
+}
+
+circle{
+    fill: none;
+    stroke: black;
+    stroke-width: 10px;
+    max-width: 70px;
+    max-height: 70px;
+    transform: translate(9%, 8%);
+    stroke-dasharray: 315;
+    stroke-dashoffset: 315;
+}
+
+#gr-tarefas  circle:nth-child(1){
+    stroke-dashoffset: 0;
+    stroke: var(--darkest);    
+}
+
+#gr-tarefas  circle:nth-child(2){
+    stroke-dashoffset: 0;
+    stroke: dodgerblue;    
+}
+
+#gr-completas circle:nth-child(1){
+    stroke-dashoffset: 0;
+    stroke: var(--darkest);    
+}
+
+#gr-completas  circle:nth-child(2){
+    stroke-dashoffset: 0;
+    stroke: greenyellow;
+    transition: stroke-dashoffset 0.5s;    
+}
+#gr-incompletas  circle:nth-child(1){
+    stroke-dashoffset: 0;
+    stroke: var(--darkest);    
+}
+
+#gr-incompletas  circle:nth-child(2){
+    stroke-dashoffset: 0;
+    stroke: orangered;    
+    transition: stroke-dashoffset 0.5s;    
+}
+
+.porcentagem{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
