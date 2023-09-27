@@ -55,11 +55,6 @@ span {
     color: var(--brand);
 }
 
-#lista-section{
-    width: 80%;
-    max-width: 80%;
-}
-
 section{
     display: flex;
     gap: 1em;

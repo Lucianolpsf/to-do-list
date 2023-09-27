@@ -1,4 +1,17 @@
-@media  (max-width: 1500px ) {
+@media (max-width: 1500px ) {
+    h1 {
+        font-size: 1.5em !important;
+    }
+
+    #lista-section {
+        width: 95%;
+        max-width: 95%;
+    }
+
+    #adicionar {
+        display: none;
+    }
+
     aside > .container{
         display: flex;
         flex-direction: column;
