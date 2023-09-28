@@ -29,7 +29,8 @@ circle{
 
 #gr-tarefas  circle:nth-child(2){
     stroke-dashoffset: 315;
-    stroke: dodgerblue;    
+    stroke: dodgerblue;
+    transition: stroke-dashoffset 0.5s;    
 }
 
 #gr-completas circle:nth-child(1){

@@ -1,6 +1,19 @@
 @media (max-width: 1500px ) {
     h1 {
-        font-size: 1.5em !important;
+        font-size: 2em !important;
+    }
+
+    #texto-input{
+        margin-right: 0;
+    }
+
+    section{
+        gap:0.5em !important;
+    }
+
+    .container{
+        padding: 1em 0.5em !important;
+        margin-bottom: 0.5em !important;
     }
 
     #lista-section {

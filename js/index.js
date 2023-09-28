@@ -11,6 +11,7 @@ const tarefasIncompletas = document.querySelector('#incompletas')
 const KEY_LOCAL_STORAGE = 'tarefasSalvas'
 const circleCompletas = document.getElementById('circle-completas')
 const circleIncompletas = document.getElementById('circle-incompletas')
+const circleTarefas = document.getElementById('circle-tarefas')
 
 let tarefasSalvas = []
 let itemClicado
@@ -180,8 +181,10 @@ function contarTarefasIncompletas(){
 }
 
 function atualizarGraficos(){
-
     totalTarefas.innerHTML = contarTarefasTotais()
+
+    contarTarefasTotais() > 0 ? circleTarefas.style.strokeDashoffset = 0: circleTarefas.style.strokeDashoffset = 315;
+
     let porcentagemConcluidas = Math.round((contarTarefasConcluidas()*100/contarTarefasTotais()))
     let porcentagemIncompletas = Math.round(contarTarefasIncompletas()*100/contarTarefasTotais())
 
