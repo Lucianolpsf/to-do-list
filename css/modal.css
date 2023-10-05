@@ -10,12 +10,6 @@
     padding: 2em;
 }
 
-.header-modal{
-    
-}
-.main-modal{
-
-}
 .footer-modal{
     display: flex;
     justify-content: end;
@@ -25,10 +19,12 @@
 .confirmar{
     background-color: var(--buttonConfirmar);
     transition: 0.3s;
+    color: var(--light);
 }
 .cancelar{
     background-color: var(--buttonCancelar);
     transition: 0.3s;
+    color: var(--light);
 }
 
 .confirmar:hover, .cancelar:hover {

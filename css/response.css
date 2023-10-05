@@ -1,4 +1,10 @@
 @media (max-width: 1500px ) {
+    
+    header{
+        width: 95% !important;
+        max-width: 95% !important;
+    }
+    
     h1 {
         font-size: 2em !important;
     }

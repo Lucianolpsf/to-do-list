@@ -5,7 +5,7 @@
 @import url(./graficos.css);
 @import url(./response.css);
 
-:root{
+:root {
     --lightest: #FFFFFF;
     --light: #D1DEE9;
     --mid: #8197A9;
@@ -43,24 +43,31 @@ body {
     align-items: center;
 }
 
-h1{
-    padding-top: 1em;
+#titulo {
+    width: 80%;
+    max-width: 80%;
+    margin: 2em 0 !important;
+    text-align: center;
+}
+
+h1 {
     font-size: 3em;
     font-weight: 700;
     color: var(--lightest);
-    text-decoration-line: underline;
     text-decoration-color: var(--lightest);
 }
+
 span {
     color: var(--brand);
 }
 
-section{
+section {
     display: flex;
     gap: 1em;
     justify-content: center;
 }
-.container{
+
+.container {
     padding: 2em 1em;
     border-radius: 5px;
     background-color: var(--dark);
@@ -68,6 +75,7 @@ section{
     color: var(--lightest);
     margin-bottom: 1em;
 }
+
 .hide {
     display: none;
 }
