@@ -1,0 +1,15 @@
+.redes-sociais{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-img {
+    max-height: 100px;
+}
+
+.rede-link{
+    text-decoration: none;
+    color: var(--lightest);
+}
