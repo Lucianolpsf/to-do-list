@@ -1,19 +1,18 @@
-const btnAdicionar = document.getElementById('adicionar')
-const textoTarefa = document.getElementById('texto-input')
-const listaTarefas = document.querySelector('ul')
-const modal = document.querySelector('#modal')
-const tarefaParaExcluir = document.querySelector('#texto-tarefa-excluir')
-const confirmarExclusao = document.querySelector('.confirmar')
-const cancelarExclusao = document.querySelector('.cancelar')
-const totalTarefas = document.querySelector('#tarefas-totais')
-const tarefasConcluidas = document.querySelector('#concluidas')
-const tarefasIncompletas = document.querySelector('#incompletas')
-const KEY_LOCAL_STORAGE = 'tarefasSalvas'
-const circleCompletas = document.getElementById('circle-completas')
-const circleIncompletas = document.getElementById('circle-incompletas')
-const circleTarefas = document.getElementById('circle-tarefas')
+import { renderizarTarefa } from './renderizarTarefa.js'
+import { excluirTarefa } from './excluirTarefa.js'
+import { atualizarGraficos } from './graficos.js'
+import { salvarTarefa } from './salvarTarefa.js'
+import { concluirTarefa } from './concluirTarefa.js'
+import {
+    KEY_LOCAL_STORAGE,
+    btnAdicionar,
+    textoTarefa,
+    listaTarefas,
+    modal,
+    confirmarExclusao,
+    cancelarExclusao
+} from './seletorDOM.js'
 
-let tarefasSalvas = []
 let itemClicado
 
 if (localStorage.getItem(KEY_LOCAL_STORAGE)){
@@ -69,133 +68,3 @@ confirmarExclusao.addEventListener('click',(evento)=>{
 cancelarExclusao.addEventListener('click', ()=>{
     modal.classList.add('hide')
 })
-
-function gerarTarefa(textoTarefa){
-    
-    tarefasSalvas.length < 1 ? id = 1 : id = tarefasSalvas[tarefasSalvas.length-1].id + 1 ;
-    
-    let tarefa = {
-        id: id,
-        texto: textoTarefa,
-        status: ''
-    }
-
-    return tarefa
-}
-
-function salvarTarefa (textoTarefa){
-
-    if (localStorage.getItem(KEY_LOCAL_STORAGE)){
-        tarefasSalvas = consultarTarefasLocalStorage()
-            
-        tarefasSalvas.push(gerarTarefa(textoTarefa)  )
-
-        enviarTarefasLocalStorage(tarefasSalvas)
-    }
-    else
-    {
-        tarefasSalvas.push(gerarTarefa(textoTarefa)  )
-        enviarTarefasLocalStorage(tarefasSalvas)
-    }   
-}
-
-function concluirTarefa(id){
-
-    tarefasSalvas = consultarTarefasLocalStorage()
-
-    tarefaParaAtulizar = tarefasSalvas.findIndex((tarefa)=> {            
-
-        return tarefa.id == id
-    })
-
-    if (tarefasSalvas[tarefaParaAtulizar].status == 'concluido') {
-        tarefasSalvas[tarefaParaAtulizar].status = ''
-        enviarTarefasLocalStorage(tarefasSalvas)
-    }
-    else{
-        tarefasSalvas[tarefaParaAtulizar].status = 'concluido'
-        enviarTarefasLocalStorage(tarefasSalvas)
-    }
-}
-
-function excluirTarefa(id){
-
-    tarefasSalvas = consultarTarefasLocalStorage()
-
-    indiceTarefa = tarefasSalvas.findIndex((tarefa)=> {            
-        return tarefa.id == id
-    })
-    tarefasSalvas.splice(indiceTarefa, 1)
-    enviarTarefasLocalStorage(tarefasSalvas)
-}
-
-function renderizarTarefa(){
-   
-    listaTarefas.innerHTML = '' 
-
-    tarefasSalvas = consultarTarefasLocalStorage()
-
-    tarefasSalvas.forEach((tarefa) => {
-
-        const li = document.createElement('li')
-        li.setAttribute('tarefa-id', `${tarefa.id}`)
-
-        li.innerHTML = `
-        <p class="${tarefa.status}">${tarefa.texto}</p> 
-        <div>
-            <button class="excluir"></button>
-            <button class="concluir"></button>
-        </div>`
-
-        listaTarefas.appendChild(li)
-    });
-}
-
-function consultarTarefasLocalStorage(){
-    return JSON.parse(localStorage.getItem(KEY_LOCAL_STORAGE))
-}
-
-function enviarTarefasLocalStorage(tarefasSalvas){
-    localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
-}
-
-function contarTarefasTotais(){
-    let tarefas = consultarTarefasLocalStorage()
-    return tarefas.length
-}
-
-function contarTarefasConcluidas(){
-    let tarefas = consultarTarefasLocalStorage()
-
-    let tarefaConcluidas = tarefas.filter((tarefa)=>{
-        if (tarefa.status == 'concluido'){
-            return tarefa
-        }
-    })
-
-    return tarefaConcluidas.length
-}
-
-function contarTarefasIncompletas(){
-    return contarTarefasTotais() - contarTarefasConcluidas()
-}
-
-function atualizarGraficos(){
-    totalTarefas.innerHTML = contarTarefasTotais()
-
-    contarTarefasTotais() > 0 ? circleTarefas.style.strokeDashoffset = 0: circleTarefas.style.strokeDashoffset = 315;
-
-    let porcentagemConcluidas = Math.round((contarTarefasConcluidas()*100/contarTarefasTotais()))
-    let porcentagemIncompletas = Math.round(contarTarefasIncompletas()*100/contarTarefasTotais())
-
-    let calculo1 = isNaN(porcentagemConcluidas)? 0 : porcentagemConcluidas;
-    let calculo2 = isNaN(porcentagemConcluidas)? 0 : porcentagemIncompletas;
-    let calculo3 = isNaN((315 * porcentagemConcluidas)/100)? 0: (315 * porcentagemConcluidas)/100;
-    let calculo4 = isNaN((315 * porcentagemIncompletas)/100)? 0: (315 * porcentagemIncompletas)/100;
-
-    tarefasConcluidas.innerHTML = calculo1 +'%'
-    circleCompletas.style.strokeDashoffset = 315 -calculo3
-
-    tarefasIncompletas.innerHTML = calculo2 +'%'
-    circleIncompletas.style.strokeDashoffset = 315 -calculo4
-}
