@@ -1,5 +1,5 @@
 import { consultarTarefasLocalStorage } from "./consultarTarefas.js"
-import { enviarTarefasLocalStorage } from "./salvarTarefaLocalStorage.js"
+import { enviarTarefasLocalStorage } from './salvarTarefa.js'
 
 function concluirTarefa(id){
 

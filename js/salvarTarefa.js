@@ -1,7 +1,10 @@
 import {consultarTarefasLocalStorage} from './consultarTarefas.js'
-import {enviarTarefasLocalStorage} from './salvarTarefaLocalStorage.js'
 import {KEY_LOCAL_STORAGE} from './seletorDOM.js'
 import {gerarTarefa} from './criarTarefa.js'
+
+function enviarTarefasLocalStorage(tarefasSalvas){
+    localStorage.setItem(KEY_LOCAL_STORAGE,JSON.stringify(tarefasSalvas))
+}
 
 function salvarTarefa (textoTarefa){
     let tarefasSalvas = []
@@ -20,4 +23,4 @@ function salvarTarefa (textoTarefa){
     }   
 }
 
-export {salvarTarefa}
+export {salvarTarefa, enviarTarefasLocalStorage}
